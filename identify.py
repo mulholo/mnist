@@ -4,6 +4,8 @@ import torch
 # TODO Platonic ideals
 # Create 'perfect' digits from simplified matrices and compare to those
 
+torch.set_printoptions(precision=0, linewidth=160)
+
 
 def to_tensor(img):
     """Converts a PIL image into a pytorch tensor"""
@@ -152,11 +154,13 @@ def compare(t1, t2):
     Assumes t1 and t2 are of rank 2.
     """
     score = 0
+
     for i in range(len(t1)):
         for j in range(len(t1[0])):
             a = t1[i][j]
             b = t2[i][j]
             # square to avoid -ve
+
             cell_score = (a - b) ** 2
             score += cell_score
     return score
@@ -165,18 +169,26 @@ def compare(t1, t2):
 def predict(img):
     """Predicts which digit the image represents"""
     t = to_tensor(img)
-    # TODO loop through possible images and get a compare score for each platonic
-    # TODO return the int with the best score
+    l = t.tolist()  # convert to python list
+    scores = {}
+    for n in range(10):
+        scores[n] = compare(mk_platonic_matrix(n), t[0].tolist())
+
+    lowest = 0
+    lowest_score = float("inf")
+    for s in scores.items():
+        if s[1] < lowest_score:
+            print(s[1])
+            lowest = s[0]
+            lowest_score = s[1]
+    return lowest
 
 
 # get dataset
 mnist = torchvision.datasets.MNIST("data", download=True)
 
-# get an arbitrary digit at index 0
-item = mnist.__getitem__(0)
-img = item[0]
-result = item[1]
-
-torch.set_printoptions(precision=0, linewidth=160)
-
-# print(predict(img))
+for i in range(10):
+    item = mnist.__getitem__(i)
+    img = item[0]
+    result = item[1]
+    print(f"Prediction: {predict(img)} | Result: {result}")
