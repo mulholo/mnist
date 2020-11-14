@@ -59,9 +59,19 @@ def make_bigger(matrix):
 
 def compare(t1, t2):
     """
-    Returns a score representing the diff between two digit matrices
+    Returns a score representing the diff between tensors t1 and t2.
+    Lower score is better.
+    Assumes t1 and t2 are of rank 2.
     """
-    # TODO some average summing
+    score = 0
+    for i in range(len(t1)):
+        for j in range(len(t1[0])):
+            a = t1[i][j]
+            b = t2[i][j]
+            # square to avoid -ve
+            cell_score = (a - b) ** 2
+            score += cell_score
+    return score
 
 
 def predict(img):
