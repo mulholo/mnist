@@ -1,10 +1,10 @@
 import torchvision
 import torch
 
-# TODO Platonic ideals
-# Create 'perfect' digits from simplified matrices and compare to those
-
 torch.set_printoptions(precision=0, linewidth=160)
+
+# Approach 1: Platonic ideals
+# Create 'perfect' digits from simplified matrices and compare to those
 
 
 def to_tensor(img):
@@ -161,7 +161,7 @@ def compare(t1, t2):
             b = t2[i][j]
             # square to avoid -ve
 
-            cell_score = (a - b) ** 2
+            cell_score = abs(a - b)
             score += cell_score
     return score
 
