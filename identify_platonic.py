@@ -187,7 +187,8 @@ mnist = torchvision.datasets.MNIST("data", download=True)
 
 def get_results():
     correct = 0
-    for i in range(1000):
+    dataset_length = len(mnist.data)
+    for i in range(dataset_length):
         item = mnist.__getitem__(i)
         img = item[0]
         result = item[1]
@@ -196,9 +197,7 @@ def get_results():
         if prediction == result:
             correct += 1
 
-        print(f"Prediction: {prediction} | Result: {result}")
-
-    return correct
+    return correct / dataset_length
 
 
 print(get_results())
