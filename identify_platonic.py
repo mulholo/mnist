@@ -159,8 +159,6 @@ def compare(t1, t2):
         for j in range(len(t1[0])):
             a = t1[i][j]
             b = t2[i][j]
-            # square to avoid -ve
-
             cell_score = abs(a - b)
             score += cell_score
     return score
