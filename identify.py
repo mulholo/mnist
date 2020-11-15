@@ -178,7 +178,6 @@ def predict(img):
     lowest_score = float("inf")
     for s in scores.items():
         if s[1] < lowest_score:
-            print(s[1])
             lowest = s[0]
             lowest_score = s[1]
     return lowest
@@ -187,8 +186,21 @@ def predict(img):
 # get dataset
 mnist = torchvision.datasets.MNIST("data", download=True)
 
-for i in range(10):
-    item = mnist.__getitem__(i)
-    img = item[0]
-    result = item[1]
-    print(f"Prediction: {predict(img)} | Result: {result}")
+
+def get_results():
+    correct = 0
+    for i in range(1000):
+        item = mnist.__getitem__(i)
+        img = item[0]
+        result = item[1]
+        prediction = predict(img)
+
+        if prediction == result:
+            correct += 1
+
+        print(f"Prediction: {prediction} | Result: {result}")
+
+    return correct
+
+
+print(get_results())
