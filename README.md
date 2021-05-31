@@ -44,10 +44,3 @@ It was interesting to me that, although this is certainly not ML, it is still st
 - Approach 2: 0.7118% accuracy
 
 Approach 1 did not go very well. Upon inspecting the training data further, it seems that the hand-drawn characters did simply not match the LCD-like digits I had created. The real data was often clumped in the centre and curvey. My data was often around the edge and at right angles. The two excpetions to this were '1' which drew a straight line down the middle and '0' which had more of a curve (and also more 'mass'), and these two digits were the ones exclusively predicted by my script. I experimented with modifying the digits to match but did not manage to obtain significant improvements.
-
-## Things I learned doing this
-
-- Statistical models probably work better, even if not ML per se. Strict comparisons are unlikely to perform well.
-- How to use and manipulate pytorch tensors.
-- `map` is awkard in Python. List comprehensions are probably more idiomatic.
-- Working in vim without autocomplete or IDE support of any kind is a little tough when working with a new library. I probably just need to tweak my Python setup! VSCode was okay but not as useful as a notebook.
